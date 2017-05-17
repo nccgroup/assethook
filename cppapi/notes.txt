@@ -1,0 +1,66 @@
+AAssetManager_open
+- ignore mode for now, could be used to detect hook so it would have to be
+  handled carefully w/ other hooks
+- Asset* AssetManager::open(const char* fileName, AccessMode mode)
+
+AAsset_close
+- void _FileAsset::close(void)
+  - _ZN7android10_FileAsset5closeEv
+- void _CompressedAsset::close(void)
+  - _ZN7android16_CompressedAsset5closeEv
+
+AAsset_getLength
+AAsset_getLength64
+- off64_t _FileAsset::getLength(void) const
+  - no symbol
+- off64_t _CompressedAsset::getLength(void) const
+  - no symbol
+
+AAsset_getRemainingLength
+AAsset_getRemainingLength64
+- off64_t _FileAsset::getRemainingLength(void)
+  - no symbol
+- off64_t _CompressedAsset::getRemainingLength(void)
+  - no symbol
+
+AAsset_read
+- ssize_t _FileAsset::read(void* buf, size_t count)
+  - _ZN7android10_FileAsset4readEPvj
+- ssize_t _CompressedAsset::read(void* buf, size_t count)
+  - _ZN7android16_CompressedAsset4readEPvj
+
+AAsset_seek
+AAsset_seek64
+- off64_t _FileAsset::seek(off64_t offset, int whence)
+  - _ZN7android10_FileAsset4seekExi
+- off64_t _CompressedAsset::seek(off64_t offset, int whence)
+  - _ZN7android16_CompressedAsset4seekExi
+
+AAsset_getBuffer
+- return asset->mAsset->getBuffer(false);
+- const void* _FileAsset::getBuffer(bool wordAligned)
+  - _ZN7android10_FileAsset9getBufferEb
+- const void* _CompressedAsset::getBuffer(bool)
+  - _ZN7android16_CompressedAsset9getBufferEb
+
+AAsset_isAllocated
+- return asset->mAsset->isAllocated() ? 1 : 0;
+- bool Asset::isAllocated(void) const { return false; }
+  - no symbol
+- bool _FileAsset::isAllocated(void) const { return mBuf != NULL; }
+  - no symbol
+- bool _CompressedAsset::isAllocated(void) const { return mBuf != NULL; }
+  - no symbol
+
+AAsset_openFileDescriptor
+AAsset_openFileDescriptor64
+- int _FileAsset::openFileDescriptor(off64_t* outStart, off64_t* outLength) const
+  - _ZNK7android10_FileAsset18openFileDescriptorEPxS1_
+- int _CompressedAsset::openFileDescriptor(off64_t* outStart, off64_t* outLength) const { return -1; }
+  - no symbol
+
+
+====
+
+Asset* AssetManager::openNonAssetInPathLocked(const char* fileName, AccessMode mode, const asset_path& ap)
+Asset* AssetManager::openInPathLocked(const char* fileName, AccessMode mode, const asset_path& ap) // unused?
